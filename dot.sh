@@ -16,12 +16,13 @@ echo "...done"
 echo "Changing to the $dir directory"
 cd $dir
 echo "...done"
-
+# TODO: Build in the Darwin/Linux check
 # move any existing dotfiles in homedir to dotfiles_old directory 
 # then create symlinks
 for file in $files; do 
-  echo "Moving any existing dotfiles from ~ to $old_dir"
-  mv ~/.$file ~/dotfiles_old/$file_$time_stamp
+  echo "Moving .$file from ~ to $old_dir/${file}_${time_stamp}"
+  mv ~/.$file $old_dir/${file}_${time_stamp}
   echo "Creating symlink to $file in home directory."
   ln -s $dir/$file ~/.$file
+  echo "...done"
 done
