@@ -448,3 +448,6 @@ hi CursorColumn cterm=NONE ctermbg=red ctermfg=white guibg=darkred guifg=white
 nnoremap H :set cursorline! cursorcolumn!<CR>
 " Force saving files that require root permission 
 cmap w!! w !sudo tee > /dev/null %
+" Enable powerline symbols
+let g:airline_powerline_fonts=1
+set guifont=Sauce\ Code\ Powerline:h13
