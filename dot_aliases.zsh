@@ -6,6 +6,7 @@ alias tl="exa --tree --long"
 alias lt=tl
 alias vim=nvim
 alias vi=nvim
+alias v='fd --type f --hidden --exclude .git | fzf-tmux -p --reverse | xargs nvim'
 alias python=/usr/bin/python3
 alias pip=pip3
 
