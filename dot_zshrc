@@ -1,0 +1,59 @@
+eval "$(starship init zsh)"
+eval "$(zoxide init zsh)"
+
+# FUNCTIONS
+
+function take {
+  mkdir -p $1
+  cd $1
+}
+
+source_if_exists (){
+  if test -r "$1"; then 
+    source "$1"
+  fi
+}
+
+
+
+# ALIASES
+source_if_exists $HOME/.aliases.zsh
+
+
+eval "$(fnm env --use-on-cd)"
+
+
+# EXPORTS
+export PATH=~/go/bin:$PATH
+export SKIM_DEFAULT_COMMAND="fd --type file --follow --hidden --exclude .git --color=always || find ."
+export SKIM_DEFAULT_OPTIONS="
+--ansi \
+--reverse \
+--color=16 \
+--delimiter=: \
+--preview-window='right:65%:hidden:+{2}-/2' \
+--preview='
+    case \`file -bL --mime-type {1}\` in
+      text/html)         w3m {1} ;;
+      text/troff)        man {1} ;;
+      text/*)            bat --style=numbers --color=always --highlight-line {2}:+0 {1} ;;
+      image/*)           viu {1} ;;
+      application/pdf)   pdftotext -layout -nopgbrk {1} - ;;
+      *)                 hexyl --bytes=4KiB --color=always --border=none {1} ;;
+    esac
+'
+--bind='\
+ctrl-d:half-page-down,\
+ctrl-u:half-page-up,\
+?:toggle-preview,\
+alt-/:execute-silent(ql {}),\
+alt-space:execute-silent(ql {})+down,\
+alt-j:preview-down,\
+alt-k:preview-up,\
+alt-h:preview-left,\
+alt-l:preview-right,\
+alt-d:preview-page-down,\
+alt-u:preview-page-up,'\
+"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
